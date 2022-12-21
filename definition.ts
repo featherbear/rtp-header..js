@@ -7,7 +7,13 @@ export default interface RTPHeader {
     timestamp: number
     SSRC: number
     CSRCs?: Array<CSRC>
-    extensions?: Array<unknown>
+    extensions?: Array<Extension>
+}
+
+export interface Extension {
+    id: number
+    // length: number
+    data: Buffer
 }
 
 export enum ExtensionHeaderType {
