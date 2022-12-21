@@ -10,6 +10,11 @@ export default interface RTPHeader {
     extensions?: Array<unknown>
 }
 
+export enum ExtensionHeaderType {
+    ONE_BYTE,
+    TWO_BYTE
+}
+
 /**
  * Probably incorrect
  */
