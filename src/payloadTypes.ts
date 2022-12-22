@@ -59,7 +59,7 @@ type AllTypes =
     typeof audio_map[keyof typeof audio_map] |
     typeof video_map[keyof typeof video_map] |
     typeof mixed_map[keyof typeof mixed_map] |
-    typeof misc_ranges_map |
+    keyof typeof misc_ranges_map |
     "Unknown"
     
 export const AllTypes = <AllTypes><unknown>[...new Set([

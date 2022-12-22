@@ -1,3 +1,5 @@
+import { AllTypes } from "./payloadTypes"
+
 export default interface RTPHeader {
     version: number
     padding: boolean
@@ -12,7 +14,7 @@ export default interface RTPHeader {
      */
     type: number
     
-    typeString?: string
+    typeString?: typeof AllTypes
     
     sequenceNumber: number
     timestamp: number
