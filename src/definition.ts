@@ -1,8 +1,17 @@
 export default interface RTPHeader {
     version: number
-    hasPadding: boolean
+    padding: boolean
+
+    /**
+     * Marker bit set
+     */
     marker: boolean
+
+    /**
+     * https://www.iana.org/assignments/rtp-parameters/rtp-parameters.xhtml
+     */
     type: number
+    
     sequenceNumber: number
     timestamp: number
     SSRC: number

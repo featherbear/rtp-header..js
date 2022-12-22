@@ -6,7 +6,7 @@ export function parseBytes(bytes: Buffer): RTPHeader {
 
     let result: RTPHeader = {
         version: (bytes[0] >> 6) & 3,
-        hasPadding: !!((bytes[0] >> 5) & 1),
+        padding: !!((bytes[0] >> 5) & 1),
         marker: !!((bytes[1] >> 7) & 1),
         type: (bytes[1]) & 0x7F,
         sequenceNumber: bytes.readUInt16BE(2),
@@ -43,17 +43,19 @@ export function parseBytes(bytes: Buffer): RTPHeader {
             throw new Error("Invalid extension header type " + header_type__raw)
         }
 
-        // TODO: Padding
-
-        let ext_count = bytes.readUInt16BE(cursor + 2) + 1
+        let ext_count = bytes.readUInt16BE(cursor + 2)
         cursor += 4
         for (let i = 0; i < ext_count; i++) {
+            if (bytes[cursor] == 0) {
+                cursor++;
+                i--;
+                continue;
+            }
             switch (headerType) {
                 case ExtensionHeaderType.ONE_BYTE: {
                     let id = bytes[cursor] >> 4
                     let len = (bytes[cursor] & 0xF) + 1
                     let data = bytes.slice(cursor + 1, cursor + 1 + len)
-                    // ASSERT data.length == len
                     extensions.push({ id, data })
                     cursor += 1 + len
                     break
