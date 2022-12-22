@@ -1,7 +1,9 @@
 import type RTPHeader from './definition'
 import { CSRC, Extension, ExtensionHeaderType, RTP_HEADER_MIN_BYTES } from './definition'
 
-export function parseBytes(bytes: Buffer): RTPHeader {
+type RTPHeaderSize = number
+
+export function parseBytes(bytes: Buffer): [RTPHeader, RTPHeaderSize] {
     if (bytes.length < RTP_HEADER_MIN_BYTES) throw new Error("Header too short")
 
     let result: RTPHeader = {
@@ -28,10 +30,11 @@ export function parseBytes(bytes: Buffer): RTPHeader {
         result.CSRCs = CSRCs
     }
 
+    let cursor = 12 + CSRC_count * 4;
+
     // https://www.rfc-editor.org/rfc/rfc5285
     if (!!((bytes[0] >> 4) & 1)) {
         let extensions: Extension[] = []
-        let cursor = 12 + CSRC_count * 4;
 
         let header_type__raw = bytes.readUInt16BE(cursor)
         let headerType: ExtensionHeaderType;
@@ -73,5 +76,9 @@ export function parseBytes(bytes: Buffer): RTPHeader {
         result.extensions = extensions
     }
 
-    return result
+    return [
+        result,
+
+        // Total header length including padding
+        cursor + (4 - cursor % 4)]
 }
