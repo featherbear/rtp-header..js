@@ -1,5 +1,6 @@
 import type RTPHeader from './definition'
 import { CSRC, Extension, ExtensionHeaderType, RTP_HEADER_MIN_BYTES } from './definition'
+import { resolve } from './payloadTypes'
 
 type RTPHeaderSize = number
 
@@ -11,6 +12,7 @@ export function parseBytes(bytes: Buffer): [RTPHeader, RTPHeaderSize] {
         padding: !!((bytes[0] >> 5) & 1),
         marker: !!((bytes[1] >> 7) & 1),
         type: (bytes[1]) & 0x7F,
+        typeString: resolve((bytes[1]) & 0x7F),
         sequenceNumber: bytes.readUInt16BE(2),
         timestamp: bytes.readUInt32BE(4),
         SSRC: bytes.readUInt32BE(8),

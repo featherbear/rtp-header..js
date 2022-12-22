@@ -1,5 +1,97 @@
 let rawPayload = [
-    `902768dc7c61923e6084bf35bede0003228921814100bb9030000000360d4ceaee12165c754dc456eec8112d54d7df0fe03af0ea02e7dfe75fdfe079c26a6135837d2326de77367fd5bf63238d2cbfa91f954f3c2fb1a997370270006711a1b45ad5d3ca9fb151a1561d3dffb2229e5c9ac80e9ac0633b3c67cd109123f674dab71cf9eda7d0ba623bbb57e34956806b117f6985053b219803ed0a02179decda0962f4526bd9050e2117db11384aeae782d88d012edb93a3b6ca09fed0503e02125c06310a4e70e528f828cd9d41140caea89abdb68a93328bfbdcb934a627de3a5e6b0fc28b18d335e9f42514f54226c1283eec0574750e63efdda60f2287baa3418488752f2396a553f00c4d6b589a50f7f26349a3dad371e7f9998fee9d368869ea855979f25d817d8f9809ccae4730fbbd0983d0be0f83f5b876105259e9efcf0dacfec0278a8d94a710980370ff8f9d52cc3e05b4d37762f01115ae395282be94ab0b7e3f906be5d87f5a9b00ce9bb9583b2ed720972d7ece7519f58430b151f7327a64bba4d5a2e2ff677267538db81e52568482af165ff500891458e063cdf48330c905e23fecf36e46aa138cbff59a772cb8485984a626234ec0658a4a39b3651375a61725d9744d22ecf178a67284d88c4fc7f9777f899f3498ede8adf2b7fbdbca0b718e0d550bebaf6264e307239a2a167bb4e4427cc50f09d014317425ac7259ab80f80c8b3f4fac0cccad50d5bdea1e7a28371d94251967463f208d267543b49c9d4ed5dcde7c72bfda8cde9c5e484a41e92a514939a32264d8ba46b3fa34e46a604c7b2ae433e7599d477e545c2511696609c14514ffa9198322f64cd849c9d453b3ef66a79f2e98064b6f6dda217bebb9286a2319fe4d6afb491fdfe799fa278915fa74375aae497d1777f4461bf1b0bbcb1f6af9da74458822c01745ec0ea551200df113dd5bf8141a1ec7df2aa2c3ed10155c2211c0a29cc946a43176fa08b706b6789cd4d75d1445e8e948ab405449441d83ce6ad86c8623728e8ce9ea6a07f2317b2476fecf88be9e741d6bc09c65784433df32640d14bfb1e9a02932faa6a2ccac1c04d8472f807c23f2e8d88e35904a71b03cf92f401e93abd267dd7025a6fb33d473ce9353d674591d36919663e39ec4bd49d0e6c2e742e46394147b028bba560ca69b7343314a6914cd52c6df7a75af0cdd10207715741ee5bbffd3c889a34e0de2ace0a52ca177b12f850d44b15b814349bb23beeffd8ca20ae616d06fc346c357bb68a5a7f5e38534249899a042f3179b04ee62e1c03945f83521dc0d4a82`
+//     `80 c8 00 06 60 84 bf 35 e7 4e 30 bf d8 db 16 3b
+// 7c 68 d2 d8 00 00 00 be 00 01 02 d9 81 ca 00 06
+// 60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+// 36 58 38 57 30 4e 00 00`,
+
+//     `80 c8 00 06 60 84 bf 35 e7 4e 30 c0 f0 de 4c 51
+// 7c 6a 53 74 00 00 00 be 00 01 02 d9 81 ca 00 06
+// 60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+// 36 58 38 57 30 4e 00 00`,
+
+//     `80 c8 00 06 60 84 bf 35 e7 4e 30 c1 dc a2 a9 0c
+// 7c 6b 97 3e 00 00 00 be 00 01 02 d9 81 ca 00 06
+// 60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+// 36 58 38 57 30 4e 00 00`,
+
+//     `80 c8 00 06 60 84 bf 35 e7 4e 30 c2 a8 95 f2 45
+// 7c 6c af 16 00 00 00 be 00 01 02 d9 81 ca 00 06
+// 60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+// 36 58 38 57 30 4e 00 00`,
+
+//     `90 a7 68 e0 7c 6d e4 1c 60 84 bf 35 be de 00 06
+// 22 a6 55 cc 41 00 bf 90 30 7c 01 00 00 00 01 00
+// 02 00 02 00 00 00 00 00 61 e0 02 40 04 be 42 f1
+// b8 b8 e0 00 72 38 00 08 1f e2 7c 4f 89 f1 3e 27
+// c4 f8 9f 13 e2 7c 4f 89 f1 3e 27 c4 f8 9f 13 e2
+// 7c 4f 89 f1 3e 27 c4 f8 9f 13 e2 7c 4f 89 f1 3e
+// 27 cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe
+// 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9
+// fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7
+// f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f
+// cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f
+// 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc
+// fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3
+// f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf
+// e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f
+// 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe
+// 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9
+// fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7
+// f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f
+// cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f
+// 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc
+// fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3
+// f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf
+// e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f
+// 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe
+// 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9
+// fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7
+// f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f
+// cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f
+// 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc
+// fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3
+// f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf
+// e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f
+// 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe
+// 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f3 f9
+// fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f cf e7
+// f3 f9 fc fe 7f 3f 9f cf e7 f3 f9 fc fe 7f 3f 9f
+// cf e7 f3 f9 fc fe 7f 3f 9f cf e7 f8 18 67 89 00
+// 04 84 00 40 00 40 5d 60 c5 4b 28 a9 78 1c 41 0b
+// 2c 38 82 16 5c df f8 fd 02 aa ff a1 30 a1 05 af
+// ed b7 10 b8 85 c4 2e 21 71 0b 88 5c 42 e2 17 10
+// b8 85 c4 2e 21 71 0b 88 5c 42 e2 17 10 b8 85 c4
+// 2e 21 71 0b 88 5c 42 e2 17 10 b8 85 c4 2e`,
+
+    `80 c8 00 06 60 84 bf 35 e7 4e 30 c3 c0 bb f5 0e
+7c 6e 30 0c 00 00 00 bf 00 01 05 5f 81 ca 00 06
+60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+36 58 38 57 30 4e 00 00`,
+
+    `80 c8 00 06 60 84 bf 35 e7 4e 30 c4 50 d1 c7 de
+7c 6e f5 fa 00 00 00 bf 00 01 05 5f 81 ca 00 06
+60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+36 58 38 57 30 4e 00 00`,
+
+    `80 c8 00 06 60 84 bf 35 e7 4e 30 c4 e4 d4 66 f5
+7c 6f c1 2e 00 00 00 bf 00 01 05 5f 81 ca 00 06
+60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+36 58 38 57 30 4e 00 00`,
+
+    `80 c8 00 06 60 84 bf 35 e7 4e 30 c5 e8 c2 d6 a9
+7c 71 26 04 00 00 00 bf 00 01 05 5f 81 ca 00 06
+60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+36 58 38 57 30 4e 00 00`,
+
+//     `90 a7 68 e1 7c 72 03 80 60 84 bf 35 be de 00 06
+// 22 b2 58 b2 41 00 c0 90 30 7c 01 00 01 00 02 00
+// 02 00 02 00 00 00 00 00 61 e0 02 80 05 3e 47 80
+// 70 cf c1 e4`,
+
+//     `80 c8 00 06 60 84 bf 35 e7 4e 30 c7 3c b4 07 03
+// 7c 72 f8 e4 00 00 00 c0 00 01 05 6b 81 ca 00 06
+// 60 84 bf 35 01 10 48 48 4f 70 78 38 69 30 37 69
+// 36 58 38 57 30 4e 00 00`
 ]
 
 import { parseBytes } from './src/util'
@@ -8,6 +100,10 @@ rawPayload.forEach(raw => {
 
     const [data, length] = parseBytes(payload)
 
-    console.log(payload, data, '\n\n\n\n');
+    console.log(payload, data);
     console.log(payload.slice(length));
+    console.log(payload.slice(length).toString());
+
+    console.log('\n\n\n');
+
 })

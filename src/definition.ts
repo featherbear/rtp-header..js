@@ -12,6 +12,8 @@ export default interface RTPHeader {
      */
     type: number
     
+    typeString?: string
+    
     sequenceNumber: number
     timestamp: number
     SSRC: number
