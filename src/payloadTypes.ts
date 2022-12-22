@@ -23,7 +23,7 @@ export const audio_map = {
     21: "Unassigned",
     22: "Unassigned",
     23: "Unassigned",
-}
+} as const
 
 export const video_map = {
     24: "Unassigned",
@@ -36,13 +36,13 @@ export const video_map = {
     31: "H261",
     32: "MPV",
     34: "H263",
-}
+} as const
 
 export const mixed_map = {
     33: 'MP2T'
-}
+} as const
 
-export const misc_ranges_map: {[k: string]: [number, number][]} = {
+export const misc_ranges_map = {
     Unassigned: [
         [77, 95]
     ],
@@ -52,15 +52,31 @@ export const misc_ranges_map: {[k: string]: [number, number][]} = {
     dynamic: [
         [96, 127]
     ]
-}
+} as const
 
-export function resolve(type: number) {
+
+type AllTypes =
+    typeof audio_map[keyof typeof audio_map] |
+    typeof video_map[keyof typeof video_map] |
+    typeof mixed_map[keyof typeof mixed_map] |
+    typeof misc_ranges_map |
+    "Unknown"
+    
+export const AllTypes = <AllTypes><unknown>[...new Set([
+    ...Object.values(audio_map),
+    ...Object.values(video_map),
+    ...Object.values(mixed_map),
+    ...Object.keys(misc_ranges_map),
+    "Unknown"
+])]
+
+export function resolve(type: number): AllTypes {
     let result = { ...audio_map, ...video_map, ...mixed_map }[type]
     if (result) return result
 
     for (const [key, ranges] of Object.entries(misc_ranges_map)) {
         for (let range of ranges) {
-            if (range[0] <= type && type <= range[1]) return key
+            if (range[0] <= type && type <= range[1]) return <AllTypes>key
         }
     }
 
